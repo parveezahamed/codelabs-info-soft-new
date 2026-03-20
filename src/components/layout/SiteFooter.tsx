@@ -1,3 +1,4 @@
+import BrandLogo from "@/components/branding/BrandLogo";
 import { primaryNav } from "@/content/navigation";
 import { footerContent } from "@/content/footer";
 import { contentMaxWidthClass, contentPaddingX, site } from "@/config/site";
@@ -22,6 +23,19 @@ export default function SiteFooter() {
       >
         <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
           <div>
+            <div className="mb-8">
+              <a
+                href="#hero"
+                className="group inline-flex items-center gap-3"
+                aria-label={`${site.name} — home`}
+              >
+                <BrandLogo
+                  animated={false}
+                  sizeClass="h-11 w-auto md:h-12"
+                  imageClassName="opacity-95 motion-safe:transition-opacity motion-safe:duration-300 group-hover:opacity-100"
+                />
+              </a>
+            </div>
             <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-teal-500/90">
               {footerContent.brandLine}
             </p>

@@ -13,7 +13,7 @@ export default function SiteJsonLd() {
         name: site.legalName,
         alternateName: [site.name, site.shortName],
         url: site.url,
-        logo: `${site.url}/icon`,
+        logo: `${site.url}${site.logoSrc}`,
         email: site.email,
         telephone: site.phoneE164,
         foundingDate: String(site.foundedYear),

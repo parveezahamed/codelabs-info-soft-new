@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { primaryNav } from "@/content/navigation";
+import BrandLogo from "@/components/branding/BrandLogo";
 import { contentMaxWidthClass, contentPaddingX, site } from "@/config/site";
 
 export default function SiteHeader() {
@@ -42,13 +43,21 @@ export default function SiteHeader() {
         >
           <a
             href="#hero"
-            className="group relative z-[60] font-[family-name:var(--font-display)] text-xl font-bold tracking-tight text-white md:text-[1.35rem]"
+            className="group relative z-[60] flex items-center gap-2.5 sm:gap-3"
+            aria-label={`${site.name} — home`}
             onClick={() => setMenuOpen(false)}
+            data-cursor-hover
           >
-            <span className="transition-colors group-hover:text-zinc-300">
-              {site.shortName}
+            <BrandLogo
+              priority
+              sizeClass="h-8 w-auto sm:h-9 md:h-10"
+            />
+            <span className="font-[family-name:var(--font-display)] text-lg font-bold tracking-tight text-white sm:text-xl md:text-[1.35rem]">
+              <span className="transition-colors group-hover:text-zinc-300">
+                {site.shortName}
+              </span>
+              <span className="text-teal-400">.</span>
             </span>
-            <span className="text-teal-400">.</span>
           </a>
 
           <nav

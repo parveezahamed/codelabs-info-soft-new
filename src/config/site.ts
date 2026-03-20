@@ -5,6 +5,8 @@ export const site = {
   shortName: "Codelabs",
   legalName: "Codelabs Infosoft Pvt Ltd",
   url: "https://codelabsinfosoft.com",
+  /** Mark / public — used in header, footer, JSON-LD */
+  logoSrc: "/codelabs-logo.png",
   description:
     "ISO 9001:2015 certified technology consulting and IT services — Microservices, iOS, Android, AWS, React, Node.js, managed services, DevOps, and outsourcing partnerships worldwide.",
   /** Primary support inbox (from live site) */
