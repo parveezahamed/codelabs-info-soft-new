@@ -1,6 +1,6 @@
 /**
  * Central motion tokens — one place to tune timing, easing, and scroll behavior.
- * Prefer expo / power4 for soft deceleration; keep durations slightly generous for a premium feel.
+ * Prefer expo / power4 for soft deceleration; slightly longer durations read as calmer / premium.
  */
 
 /** GSAP easing strings */
@@ -24,45 +24,48 @@ export const ease = {
  */
 export const duration = {
   /** Hero headline lines */
-  heroLine: 1.38,
-  heroSub: 1.12,
-  heroCta: 1.05,
-  heroAside: 1.22,
-  /** Scroll-triggered blocks */
-  reveal: 1.28,
-  /** Card grid — each item */
-  staggerItem: 1.05,
+  heroLine: 1.48,
+  heroSub: 1.18,
+  heroCta: 1.1,
+  heroAside: 1.28,
+  /** Scroll-triggered blocks — generous deceleration */
+  reveal: 1.42,
+  /** Card grid — each item (keep modest so stagger doesn’t feel sluggish) */
+  staggerItem: 0.95,
   /** Brand logo entrance */
-  brandEntrance: 0.95,
+  brandEntrance: 1.02,
   /** Brand idle float loop */
-  brandFloat: 3.35,
+  brandFloat: 3.5,
   /** Cursor dot (quickTo) */
-  cursorDot: 0.2,
-  /** Cursor ring lag */
-  cursorRing: 0.68,
+  cursorDot: 0.22,
+  /** Cursor ring lag — slightly silkier follow */
+  cursorRing: 0.74,
   /** Cursor press / hover tweens */
-  cursorMicro: 0.42,
+  cursorMicro: 0.44,
 };
 
 /** Stagger gaps (seconds between siblings) */
 export const stagger = {
   /** Hero headline lines */
-  heroLines: 0.155,
-  /** Card grids — center-weighted stagger uses this as base step */
-  cards: 0.128,
+  heroLines: 0.165,
+  /** Card grids — gap between siblings (smaller = snappier grid reveals) */
+  cards: 0.045,
 };
 
 /** Scroll-driven reveal: initial transform (subtle = less “pop”) */
 export const reveal = {
-  y: 26,
-  scaleFrom: 0.992,
+  y: 22,
+  scaleFrom: 0.994,
+  /** Staggered cards — separate from block reveals for layout tuning */
+  staggerY: 24,
+  staggerScaleFrom: 0.992,
 };
 
 /** Hero timeline overlap labels — softer cascade than hard -= jumps */
 export const heroOverlap = {
-  afterLines: "-=0.48",
-  afterSub: "-=0.52",
-  afterCta: "-=0.56",
+  afterLines: "-=0.52",
+  afterSub: "-=0.56",
+  afterCta: "-=0.58",
 };
 
 /**

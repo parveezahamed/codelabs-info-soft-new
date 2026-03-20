@@ -14,7 +14,18 @@ export const scrollTriggerReveal = {
 /** Start positions — fraction of viewport (higher = earlier trigger) */
 export const scrollTriggerStart = {
   /** Section headings, single blocks */
-  block: "top 88%",
-  /** Grids — trigger when container enters */
-  grid: "top 86%",
+  block: "top 90%",
+  /** Grids — fire slightly earlier so cards don’t feel late */
+  grid: "top 92%",
+} as const;
+
+/** Ready-to-merge ScrollTrigger configs — set `trigger` in the tween */
+export const scrollTriggerBlock = {
+  ...scrollTriggerReveal,
+  start: scrollTriggerStart.block,
+} as const;
+
+export const scrollTriggerGrid = {
+  ...scrollTriggerReveal,
+  start: scrollTriggerStart.grid,
 } as const;

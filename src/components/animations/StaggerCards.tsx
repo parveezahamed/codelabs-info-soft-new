@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { gsap } from "@/lib/gsap";
-import { ease, duration, stagger } from "@/lib/motion";
-import { scrollTriggerReveal, scrollTriggerStart } from "@/lib/scroll-motion";
+import { ease, duration, stagger, reveal } from "@/lib/motion";
+import { scrollTriggerGrid } from "@/lib/scroll-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 type StaggerCardsProps = {
@@ -13,7 +13,7 @@ type StaggerCardsProps = {
 };
 
 /**
- * Staggered grid reveal — center-weighted stagger + eased step curve so the tail stays graceful.
+ * Staggered grid reveal — row-major order so no “middle” card waits on a long center wave.
  */
 export default function StaggerCards({
   children,
@@ -42,41 +42,43 @@ export default function StaggerCards({
       return;
     }
 
-    gsap.set(items, { willChange: "transform, opacity" });
+    const ctx = gsap.context(() => {
+      gsap.set(items, { willChange: "transform, opacity" });
 
-    const tween = gsap.fromTo(
-      items,
-      { autoAlpha: 0, y: 28, scale: 0.99 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        scale: 1,
-        duration: duration.staggerItem,
-        stagger: {
-          each: stagger.cards,
-          ease: ease.staggerSpread,
-          from: "center",
-          grid: "auto",
+      gsap.fromTo(
+        items,
+        {
+          autoAlpha: 0,
+          y: reveal.staggerY,
+          scale: reveal.staggerScaleFrom,
         },
-        ease: ease.outExpo,
-        force3D: true,
-        scrollTrigger: {
-          trigger: root,
-          start: scrollTriggerStart.grid,
-          ...scrollTriggerReveal,
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: duration.staggerItem,
+          stagger: {
+            each: stagger.cards,
+            ease: ease.staggerSpread,
+            from: "start",
+            grid: "auto",
+          },
+          ease: ease.outExpo,
+          force3D: true,
+          scrollTrigger: {
+            ...scrollTriggerGrid,
+            trigger: root,
+          },
+          onComplete: () => {
+            items.forEach((node) => {
+              node.style.willChange = "auto";
+            });
+          },
         },
-        onComplete: () => {
-          items.forEach((node) => {
-            node.style.willChange = "auto";
-          });
-        },
-      },
-    );
+      );
+    }, root);
 
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
+    return () => ctx.revert();
   }, [childSelector, reducedMotion]);
 
   return (

@@ -34,20 +34,20 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         defaults: { ease: ease.outExpo, force3D: true },
-        delay: 0.14,
+        delay: 0.12,
       });
 
       tl.from(".hero-line", {
-        y: 40,
-        opacity: 0,
+        y: 36,
+        autoAlpha: 0,
         duration: duration.heroLine,
         stagger: stagger.heroLines,
       })
         .from(
           ".hero-sub",
           {
-            y: 22,
-            opacity: 0,
+            y: 18,
+            autoAlpha: 0,
             duration: duration.heroSub,
             ease: ease.outExpo,
           },
@@ -56,8 +56,8 @@ export default function Hero() {
         .from(
           ".hero-cta",
           {
-            y: 20,
-            opacity: 0,
+            y: 18,
+            autoAlpha: 0,
             duration: duration.heroCta,
             ease: ease.outExpo,
           },
@@ -66,8 +66,8 @@ export default function Hero() {
         .from(
           ".hero-aside",
           {
-            x: 20,
-            opacity: 0,
+            x: 18,
+            autoAlpha: 0,
             duration: duration.heroAside,
             ease: ease.outExpo,
           },

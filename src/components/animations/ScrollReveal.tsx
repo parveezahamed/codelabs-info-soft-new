@@ -4,7 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { gsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 import { ease, duration, reveal } from "@/lib/motion";
-import { scrollTriggerReveal, scrollTriggerStart } from "@/lib/scroll-motion";
+import { scrollTriggerBlock } from "@/lib/scroll-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 type ScrollRevealProps = {
@@ -40,38 +40,36 @@ export default function ScrollReveal({
       return;
     }
 
-    gsap.set(el, { willChange: "transform, opacity" });
+    const ctx = gsap.context(() => {
+      gsap.set(el, { willChange: "transform, opacity" });
 
-    const tween = gsap.fromTo(
-      el,
-      {
-        autoAlpha: 0,
-        y,
-        scale: reveal.scaleFrom,
-      },
-      {
-        autoAlpha: 1,
-        y: 0,
-        scale: 1,
-        duration: duration.reveal,
-        delay,
-        ease: ease.outExpo,
-        force3D: true,
-        scrollTrigger: {
-          trigger: el,
-          start: scrollTriggerStart.block,
-          ...scrollTriggerReveal,
+      gsap.fromTo(
+        el,
+        {
+          autoAlpha: 0,
+          y,
+          scale: reveal.scaleFrom,
         },
-        onComplete: () => {
-          el.style.willChange = "auto";
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: duration.reveal,
+          delay,
+          ease: ease.outExpo,
+          force3D: true,
+          scrollTrigger: {
+            ...scrollTriggerBlock,
+            trigger: el,
+          },
+          onComplete: () => {
+            el.style.willChange = "auto";
+          },
         },
-      },
-    );
+      );
+    }, el);
 
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
+    return () => ctx.revert();
   }, [y, delay, reducedMotion]);
 
   return (

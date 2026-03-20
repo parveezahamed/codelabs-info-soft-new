@@ -11,11 +11,15 @@ export const lenisOptions: LenisOptions = {
   /** Slightly longer ease = silkier stop without feeling sluggish */
   duration: 0.98,
   easing: lenisEaseOutQuart,
-  lerp: 0.11,
+  /** Slightly lower = smoother interpolation with GSAP ticker (pairs with LenisProvider) */
+  lerp: 0.095,
   smoothWheel: true,
   wheelMultiplier: 1,
   touchMultiplier: 1.08,
   syncTouchLerp: 0.1,
-  /** Lenis runs its own rAF loop — avoids duplicating RAF in the provider */
-  autoRaf: true,
+  /**
+   * GSAP’s ticker drives `lenis.raf()` so Lenis + ScrollTrigger share one frame clock.
+   * See Lenis README “GSAP ScrollTrigger”.
+   */
+  autoRaf: false,
 };
