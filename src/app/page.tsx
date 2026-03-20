@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-col">
+      <main id="main-content" className="flex flex-col">
         <Hero />
         <MarqueeStrip />
         <About />

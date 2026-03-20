@@ -23,17 +23,9 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    let rafId = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
     ScrollTrigger.refresh();
 
     return () => {
-      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, [reducedMotion]);

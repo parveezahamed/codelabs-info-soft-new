@@ -27,7 +27,7 @@ function CameraRig() {
 }
 
 /** Orbiting particle field — low point count for stable frame times on laptops. */
-function ParticleField({ count = 320 }: { count?: number }) {
+function ParticleField({ count = 260 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
