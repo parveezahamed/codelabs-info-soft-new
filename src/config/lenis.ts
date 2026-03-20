@@ -8,9 +8,10 @@ export const lenisEaseOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
  * behind the wheel / finger; this keeps smooth scroll without mushy inertia.
  */
 export const lenisOptions: LenisOptions = {
-  duration: 0.92,
+  /** Slightly longer ease = silkier stop without feeling sluggish */
+  duration: 0.98,
   easing: lenisEaseOutQuart,
-  lerp: 0.12,
+  lerp: 0.11,
   smoothWheel: true,
   wheelMultiplier: 1,
   touchMultiplier: 1.08,

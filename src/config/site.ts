@@ -8,7 +8,7 @@ export const site = {
   /** Mark / public — used in header, footer, JSON-LD */
   logoSrc: "/codelabs-logo.png",
   description:
-    "ISO 9001:2015 certified technology consulting and IT services — Microservices, iOS, Android, AWS, React, Node.js, managed services, DevOps, and outsourcing partnerships worldwide.",
+    "ISO 9001:2015 certified technology consulting and software engineering. We build AI agents and intelligent automations, SaaS and subscription products, native and hybrid mobile applications, and cross‑platform desktop software for Windows, macOS, and Linux — backed by cloud, DevOps, managed services, and global outsourcing partnerships.",
   /** Primary support inbox (from live site) */
   email: "support@codelabsinfosoft.com",
   themeColor: "#060608",
@@ -134,6 +134,30 @@ export const site = {
     "India software company",
     "global IT services",
     "worldwide delivery",
+    // AI & SaaS
+    "AI agents",
+    "AI automation",
+    "LLM integration",
+    "intelligent workflows",
+    "SaaS development",
+    "SaaS product engineering",
+    "multi-tenant SaaS",
+    "subscription billing integration",
+    // Mobile
+    "hybrid mobile apps",
+    "React Native",
+    "Flutter",
+    "native iOS",
+    "native Android",
+    "cross-platform mobile",
+    // Desktop
+    "desktop application development",
+    "cross-platform desktop",
+    "Windows applications",
+    "macOS applications",
+    "Linux applications",
+    "Electron",
+    "Tauri",
   ],
 } as const;
 

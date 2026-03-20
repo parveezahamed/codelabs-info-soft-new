@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { contentMaxWidthClass, contentPaddingX, site } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { ease, duration, stagger } from "@/lib/motion";
+import { ease, duration, stagger, heroOverlap } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), {
@@ -34,44 +34,44 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         defaults: { ease: ease.outExpo, force3D: true },
-        delay: 0.12,
+        delay: 0.14,
       });
 
       tl.from(".hero-line", {
-        y: 44,
+        y: 40,
         opacity: 0,
-        duration: duration.hero,
+        duration: duration.heroLine,
         stagger: stagger.heroLines,
       })
         .from(
           ".hero-sub",
           {
-            y: 26,
+            y: 22,
             opacity: 0,
-            duration: 1.05,
+            duration: duration.heroSub,
             ease: ease.outExpo,
           },
-          "-=0.72",
+          heroOverlap.afterLines,
         )
         .from(
           ".hero-cta",
           {
-            y: 22,
+            y: 20,
             opacity: 0,
-            duration: 0.95,
+            duration: duration.heroCta,
             ease: ease.outExpo,
           },
-          "-=0.58",
+          heroOverlap.afterSub,
         )
         .from(
           ".hero-aside",
           {
-            x: 22,
+            x: 20,
             opacity: 0,
-            duration: 1.15,
+            duration: duration.heroAside,
             ease: ease.outExpo,
           },
-          "-=0.78",
+          heroOverlap.afterCta,
         );
     }, root);
 
@@ -117,7 +117,7 @@ export default function Hero() {
                 className="h-px w-10 bg-gradient-to-r from-teal-500/60 to-transparent"
                 aria-hidden
               />
-              {site.name} — Digital product studio
+              {site.name} — AI, SaaS & full‑stack delivery
             </p>
 
             <h1 className="font-[family-name:var(--font-display)] font-semibold tracking-tight text-white">
@@ -132,10 +132,10 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="hero-sub mt-8 max-w-xl text-base leading-[1.75] text-zinc-500 md:text-lg">
-              Global technology consulting and IT services — microservices, mobile,
-              AWS, React, Node.js, and managed delivery — so you can scale product and
-              operations with confidence.
+            <p className="hero-sub mt-8 max-w-2xl text-base leading-[1.75] text-zinc-500 md:text-lg">
+              We engineer AI agents and automations, SaaS products, native and hybrid
+              mobile apps, and cross‑platform desktop software — with cloud, DevOps, and
+              managed services — so you can ship faster with confidence.
             </p>
 
             <div className="hero-cta mt-12 flex flex-wrap items-center gap-5">
@@ -144,7 +144,7 @@ export default function Hero() {
                 className={cn(
                   "group relative inline-flex items-center justify-center overflow-hidden rounded-full",
                   "bg-teal-400 px-9 py-4 text-[13px] font-semibold uppercase tracking-[0.12em] text-zinc-950",
-                  "motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98]",
+                  "motion-safe:transition-transform motion-safe:duration-[680ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98]",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400/80",
                 )}
                 data-cursor-hover
@@ -152,14 +152,14 @@ export default function Hero() {
                 <span className="relative z-10 flex items-center gap-2">
                   Start a project
                   <span
-                    className="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:translate-x-0.5"
+                    className="inline-block motion-safe:transition-transform motion-safe:duration-[680ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:translate-x-0.5"
                     aria-hidden
                   >
                     →
                   </span>
                 </span>
                 <span
-                  className="absolute inset-0 translate-y-full bg-white/25 motion-safe:transition-transform motion-safe:duration-[650ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:translate-y-0"
+                  className="absolute inset-0 translate-y-full bg-white/25 motion-safe:transition-transform motion-safe:duration-[720ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:translate-y-0"
                   aria-hidden
                 />
               </a>
@@ -168,14 +168,14 @@ export default function Hero() {
                 className={cn(
                   "group inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-8 py-4",
                   "text-[13px] font-medium uppercase tracking-[0.14em] text-zinc-200",
-                  "motion-safe:transition-all motion-safe:duration-[600ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:border-teal-400/35 motion-safe:hover:bg-white/[0.04]",
+                  "motion-safe:transition-all motion-safe:duration-[680ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:border-teal-400/35 motion-safe:hover:bg-white/[0.04]",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400/60",
                 )}
                 data-cursor-hover
               >
                 View work
                 <span
-                  className="text-teal-400/90 motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:translate-x-1"
+                  className="text-teal-400/90 motion-safe:transition-transform motion-safe:duration-[680ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:translate-x-1"
                   aria-hidden
                 >
                   ↗

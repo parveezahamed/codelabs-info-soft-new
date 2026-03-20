@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import { ease } from "@/lib/motion";
+import { ease, duration } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -50,7 +50,7 @@ export default function BrandLogo({
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 0.88,
+          duration: duration.brandEntrance,
           ease: ease.outExpo,
           delay: 0.08,
         },
@@ -59,13 +59,18 @@ export default function BrandLogo({
       gsap.fromTo(
         inner,
         { rotate: -2 },
-        { rotate: 0, duration: 0.9, ease: ease.outExpo, delay: 0.08 },
+        {
+          rotate: 0,
+          duration: duration.brandEntrance + 0.05,
+          ease: ease.outExpo,
+          delay: 0.08,
+        },
       );
 
       gsap.to(inner, {
         y: -3,
-        duration: 2.75,
-        ease: "sine.inOut",
+        duration: duration.brandFloat,
+        ease: ease.smoothInOut,
         repeat: -1,
         yoyo: true,
       });

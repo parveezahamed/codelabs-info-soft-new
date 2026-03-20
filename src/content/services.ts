@@ -1,17 +1,46 @@
+/** Static / 2D background copy for `ServicesBackdrop` */
+export const servicesBackdrop = {
+  /** Large watermark word behind the heading area */
+  watermark: "DELIVER",
+  /** Faint keyword rail — capabilities we highlight */
+  keywords: [
+    "AI agents",
+    "SaaS",
+    "Mobile",
+    "Desktop",
+    "Cloud",
+    "DevOps",
+    "Managed",
+    "Consulting",
+  ] as const,
+} as const;
+
 export const servicesSection = {
   index: "02",
   eyebrow: "Services",
   title: "What we deliver",
   subtitle:
-    "From recruitment and managed operations to full‑stack builds and DevOps — structured programs that match your risk profile.",
+    "From AI‑powered products and SaaS to mobile, desktop, cloud, and managed operations — structured delivery that matches your roadmap and risk profile.",
   items: [
     {
       title: "Outsourcing & consulting",
-      body: "Partnership over purchase orders: we align roadmaps, SLAs, and delivery models so outcomes stay measurable as your needs evolve.",
+      body: "Partnership over purchase orders: we align roadmaps, SLAs, and delivery models so outcomes stay measurable as your needs evolve — whether you’re augmenting a team or outsourcing a full workstream.",
     },
     {
-      title: "Application development",
-      body: "Full‑stack engineering across web and cloud — React, Node.js, Python, microservices, UI/UX, Android & iOS — with quality baked into the process.",
+      title: "AI agents & intelligent automation",
+      body: "We design and implement AI agents, copilots, and workflow automations — from retrieval and tool use to guarded prompts, evaluation, and production monitoring — integrated with your APIs, data stores, and security policies.",
+    },
+    {
+      title: "SaaS & digital products",
+      body: "End‑to‑end SaaS engineering: multi‑tenant architecture, identity, billing hooks, admin consoles, analytics, and resilient APIs — so you can ship subscription products with room to scale usage and compliance needs.",
+    },
+    {
+      title: "Mobile apps — hybrid & native",
+      body: "Consumer and enterprise mobile applications using native stacks (Swift/Kotlin) and hybrid approaches (e.g. React Native, Flutter) when velocity and shared code matter — offline‑aware flows, push, deep links, and store‑ready release pipelines.",
+    },
+    {
+      title: "Desktop — cross‑platform",
+      body: "Desktop software for Windows, macOS, and Linux — from installers and auto‑update to system integrations, local performance, and offline‑first UX, using native frameworks or cross‑platform shells (e.g. Electron, Tauri) when appropriate.",
     },
     {
       title: "Recruitment process outsourcing (RPO)",

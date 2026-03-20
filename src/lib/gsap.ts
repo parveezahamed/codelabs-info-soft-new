@@ -7,4 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  */
 gsap.registerPlugin(ScrollTrigger);
 
+if (typeof window !== "undefined") {
+  /** Fewer ScrollTrigger callbacks during fast scroll — better main-thread budget */
+  ScrollTrigger.config({
+    limitCallbacks: true,
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
+  });
+}
+
 export { gsap, ScrollTrigger };

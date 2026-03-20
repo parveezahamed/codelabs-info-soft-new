@@ -1,5 +1,6 @@
 import StaggerCards from "@/components/animations/StaggerCards";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import ServicesBackdrop from "@/components/sections/ServicesBackdrop";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { servicesSection } from "@/content/services";
 import { contentMaxWidthClass, contentPaddingX } from "@/config/site";
@@ -9,15 +10,16 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-28 border-t border-white/[0.06] bg-[#08080c] py-28 md:py-36"
+      className="relative scroll-mt-28 overflow-hidden border-t border-white/[0.06] bg-[#08080c] py-28 md:py-36"
     >
-      <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,6,8,0)_0%,rgba(45,212,191,0.03)_50%,rgba(6,6,8,0)_100%)]"
-        aria-hidden
-      />
+      <ServicesBackdrop />
 
       <div
-        className={cn("relative mx-auto", contentMaxWidthClass, contentPaddingX)}
+        className={cn(
+          "relative z-10 mx-auto",
+          contentMaxWidthClass,
+          contentPaddingX,
+        )}
       >
         <ScrollReveal>
           <SectionHeading
@@ -28,7 +30,7 @@ export default function Services() {
           />
         </ScrollReveal>
 
-        <StaggerCards className="mt-20 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+        <StaggerCards className="mt-20 grid gap-4 pb-20 sm:grid-cols-2 sm:gap-5 sm:pb-24 lg:grid-cols-3">
           {servicesSection.items.map((s, i) => (
             <article
               key={s.title}

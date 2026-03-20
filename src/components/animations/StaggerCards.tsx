@@ -3,6 +3,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { gsap } from "@/lib/gsap";
 import { ease, duration, stagger } from "@/lib/motion";
+import { scrollTriggerReveal, scrollTriggerStart } from "@/lib/scroll-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 type StaggerCardsProps = {
@@ -12,7 +13,7 @@ type StaggerCardsProps = {
 };
 
 /**
- * Staggered grid reveal — eased stagger curve so the tail doesn’t feel rushed.
+ * Staggered grid reveal — center-weighted stagger + eased step curve so the tail stays graceful.
  */
 export default function StaggerCards({
   children,
@@ -32,29 +33,42 @@ export default function StaggerCards({
     if (!items.length) return;
 
     if (reducedMotion) {
-      gsap.set(items, { y: 0, opacity: 1, scale: 1, clearProps: "all" });
+      gsap.set(items, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        clearProps: "all",
+      });
       return;
     }
 
+    gsap.set(items, { willChange: "transform, opacity" });
+
     const tween = gsap.fromTo(
       items,
-      { y: 32, opacity: 0, scale: 0.98 },
+      { autoAlpha: 0, y: 28, scale: 0.99 },
       {
+        autoAlpha: 1,
         y: 0,
-        opacity: 1,
         scale: 1,
         duration: duration.staggerItem,
         stagger: {
           each: stagger.cards,
-          ease: ease.outCubic,
+          ease: ease.staggerSpread,
+          from: "center",
+          grid: "auto",
         },
         ease: ease.outExpo,
         force3D: true,
         scrollTrigger: {
           trigger: root,
-          start: "top 84%",
-          toggleActions: "play none none none",
-          fastScrollEnd: true,
+          start: scrollTriggerStart.grid,
+          ...scrollTriggerReveal,
+        },
+        onComplete: () => {
+          items.forEach((node) => {
+            node.style.willChange = "auto";
+          });
         },
       },
     );

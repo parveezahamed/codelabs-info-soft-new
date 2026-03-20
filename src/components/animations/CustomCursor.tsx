@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
-import { ease } from "@/lib/motion";
+import { ease, duration } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 /**
- * Soft follow cursor — slower ring + expo easing reads more “studio” than linear quickTo.
+ * Soft follow cursor — ring lags behind the dot; pointer events batched to one rAF per frame.
  */
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -30,29 +30,53 @@ export default function CustomCursor() {
 
     gsap.set([dot, ring], { xPercent: -50, yPercent: -50 });
 
-    const xDot = gsap.quickTo(dot, "x", { duration: 0.16, ease: ease.outExpo });
-    const yDot = gsap.quickTo(dot, "y", { duration: 0.16, ease: ease.outExpo });
-    const xRing = gsap.quickTo(ring, "x", { duration: 0.55, ease: ease.outExpo });
-    const yRing = gsap.quickTo(ring, "y", { duration: 0.55, ease: ease.outExpo });
+    const xDot = gsap.quickTo(dot, "x", {
+      duration: duration.cursorDot,
+      ease: ease.outExpo,
+    });
+    const yDot = gsap.quickTo(dot, "y", {
+      duration: duration.cursorDot,
+      ease: ease.outExpo,
+    });
+    const xRing = gsap.quickTo(ring, "x", {
+      duration: duration.cursorRing,
+      ease: ease.outExpo,
+    });
+    const yRing = gsap.quickTo(ring, "y", {
+      duration: duration.cursorRing,
+      ease: ease.outExpo,
+    });
+
+    let raf = 0;
+    let px = 0;
+    let py = 0;
+
+    const flush = () => {
+      raf = 0;
+      xDot(px);
+      yDot(py);
+      xRing(px);
+      yRing(py);
+    };
 
     const onMove = (e: MouseEvent) => {
-      xDot(e.clientX);
-      yDot(e.clientY);
-      xRing(e.clientX);
-      yRing(e.clientY);
+      px = e.clientX;
+      py = e.clientY;
+      if (raf) return;
+      raf = requestAnimationFrame(flush);
     };
 
     const onDown = () => {
       gsap.to([dot, ring], {
         scale: 0.9,
-        duration: 0.35,
+        duration: duration.cursorMicro,
         ease: ease.outQuart,
       });
     };
     const onUp = () => {
       gsap.to([dot, ring], {
         scale: 1,
-        duration: 0.45,
+        duration: duration.cursorMicro + 0.08,
         ease: ease.outExpo,
       });
     };
@@ -62,22 +86,30 @@ export default function CustomCursor() {
       gsap.to(ring, {
         scale: 1.55,
         opacity: 0.38,
-        duration: 0.45,
+        duration: duration.cursorMicro + 0.06,
         ease: ease.outExpo,
       });
-      gsap.to(dot, { scale: 0.55, duration: 0.35, ease: ease.outExpo });
+      gsap.to(dot, {
+        scale: 0.55,
+        duration: duration.cursorMicro,
+        ease: ease.outExpo,
+      });
     };
     const onLeave = () => {
       gsap.to(ring, {
         scale: 1,
         opacity: 1,
-        duration: 0.5,
+        duration: duration.cursorMicro + 0.12,
         ease: ease.outExpo,
       });
-      gsap.to(dot, { scale: 1, duration: 0.4, ease: ease.outExpo });
+      gsap.to(dot, {
+        scale: 1,
+        duration: duration.cursorMicro + 0.06,
+        ease: ease.outExpo,
+      });
     };
 
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
 
@@ -88,6 +120,7 @@ export default function CustomCursor() {
     });
 
     return () => {
+      if (raf) cancelAnimationFrame(raf);
       document.body.classList.remove("cursor-none");
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mousedown", onDown);

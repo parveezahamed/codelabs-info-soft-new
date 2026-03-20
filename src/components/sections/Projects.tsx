@@ -1,5 +1,6 @@
 import StaggerCards from "@/components/animations/StaggerCards";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import ProjectCardVisual from "@/components/projects/ProjectCardVisual";
 import SectionHeading from "@/components/ui/SectionHeading";
 import {
   PROJECT_CARD_GRID_BG,
@@ -41,12 +42,13 @@ export default function Projects() {
                   p.tone,
                 )}
               >
+                <ProjectCardVisual visual={p.visual} />
                 <div
-                  className="absolute inset-0 opacity-[0.15] mix-blend-overlay"
+                  className="absolute inset-0 z-[2] opacity-[0.15] mix-blend-overlay"
                   style={{ backgroundImage: PROJECT_CARD_GRID_BG }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-transparent to-transparent" />
-                <span className="absolute bottom-4 left-5 font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
+                <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#060608] via-transparent to-transparent" />
+                <span className="absolute bottom-4 left-5 z-[3] font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
                   {p.year}
                 </span>
               </div>

@@ -7,7 +7,15 @@ export const faqSection = {
   items: [
     {
       q: "What is Codelabs Infosoft?",
-      a: "An ISO 9001:2015 certified IT company founded in 2022, focused on empowering digital services for clients through product development, consulting, and managed delivery.",
+      a: "An ISO 9001:2015 certified IT company founded in 2022, focused on digital services worldwide — including AI agents and automation, SaaS products, native and hybrid mobile apps, cross‑platform desktop software, cloud, DevOps, consulting, and managed delivery.",
+    },
+    {
+      q: "Do you build AI agents and SaaS products?",
+      a: "Yes. We help with agentic workflows, LLM integration, guardrails, and production operations — and we build multi‑tenant SaaS-style products with APIs, billing hooks, and admin experiences tailored to your domain.",
+    },
+    {
+      q: "Which mobile and desktop platforms do you support?",
+      a: "Mobile: native (e.g. Swift/Kotlin) and hybrid (e.g. React Native, Flutter) for iOS and Android. Desktop: Windows, macOS, and Linux — native or cross‑platform stacks (e.g. Electron, Tauri) depending on performance, distribution, and integration needs.",
     },
     {
       q: "Who is on the team?",
